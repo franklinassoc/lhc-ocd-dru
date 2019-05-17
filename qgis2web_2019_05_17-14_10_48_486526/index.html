@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/LouisianaParishes_1.js"></script>
+        <script src="data/WMAsRefuges_LDWF_2.js"></script>
+        <script src="data/LouisianaScenicRivers_3.js"></script>
+        <script src="data/solution4_applicants_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[29.897868592499997,-93.86722301563337],[32.581983907499996,-89.55825348436663]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'feet',
+            secondaryLengthUnit: 'miles',
+            primaryAreaUnit: 'sqfeet',
+            secondaryAreaUnit: 'sqmiles'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var overlay_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0
+        });
+        overlay_OSMStandard_0.addTo(map);
+        map.addLayer(overlay_OSMStandard_0);
+        function pop_LouisianaParishes_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PARISH'] !== null ? Autolinker.link(String(feature.properties['PARISH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FIPS'] !== null ? Autolinker.link(String(feature.properties['FIPS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PARISH_FIP'] !== null ? Autolinker.link(String(feature.properties['PARISH_FIP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Parish_Num'] !== null ? Autolinker.link(String(feature.properties['Parish_Num'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Leng'] !== null ? Autolinker.link(String(feature.properties['SHAPE_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Le_1'] !== null ? Autolinker.link(String(feature.properties['Shape_Le_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LouisianaParishes_1_0() {
+            return {
+                pane: 'pane_LouisianaParishes_1',
+                opacity: 1,
+                color: 'rgba(251,154,153,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_LouisianaParishes_1');
+        map.getPane('pane_LouisianaParishes_1').style.zIndex = 401;
+        map.getPane('pane_LouisianaParishes_1').style['mix-blend-mode'] = 'normal';
+        var layer_LouisianaParishes_1 = new L.geoJson(json_LouisianaParishes_1, {
+            attribution: '',
+            pane: 'pane_LouisianaParishes_1',
+            onEachFeature: pop_LouisianaParishes_1,
+            style: style_LouisianaParishes_1_0,
+        });
+        bounds_group.addLayer(layer_LouisianaParishes_1);
+        map.addLayer(layer_LouisianaParishes_1);
+        function pop_WMAsRefuges_LDWF_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NAME</strong><br />' + (feature.properties['NAME'] !== null ? Autolinker.link(String(feature.properties['NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Date_Estab'] !== null ? Autolinker.link(String(feature.properties['Date_Estab'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Link'] !== null ? Autolinker.link(String(feature.properties['Link'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GIS_Acres'] !== null ? Autolinker.link(String(feature.properties['GIS_Acres'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Lease'] !== null ? Autolinker.link(String(feature.properties['Lease'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name_Short'] !== null ? Autolinker.link(String(feature.properties['Name_Short'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_WMAsRefuges_LDWF_2_0() {
+            return {
+                pane: 'pane_WMAsRefuges_LDWF_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(148,209,128,1.0)',
+            }
+        }
+        map.createPane('pane_WMAsRefuges_LDWF_2');
+        map.getPane('pane_WMAsRefuges_LDWF_2').style.zIndex = 402;
+        map.getPane('pane_WMAsRefuges_LDWF_2').style['mix-blend-mode'] = 'normal';
+        var layer_WMAsRefuges_LDWF_2 = new L.geoJson(json_WMAsRefuges_LDWF_2, {
+            attribution: '',
+            pane: 'pane_WMAsRefuges_LDWF_2',
+            onEachFeature: pop_WMAsRefuges_LDWF_2,
+            style: style_WMAsRefuges_LDWF_2_0,
+        });
+        bounds_group.addLayer(layer_WMAsRefuges_LDWF_2);
+        map.addLayer(layer_WMAsRefuges_LDWF_2);
+        function pop_LouisianaScenicRivers_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FNODE_'] !== null ? Autolinker.link(String(feature.properties['FNODE_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TNODE_'] !== null ? Autolinker.link(String(feature.properties['TNODE_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LPOLY_'] !== null ? Autolinker.link(String(feature.properties['LPOLY_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['RPOLY_'] !== null ? Autolinker.link(String(feature.properties['RPOLY_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LENGTH'] !== null ? Autolinker.link(String(feature.properties['LENGTH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LDWFRIVERS'] !== null ? Autolinker.link(String(feature.properties['LDWFRIVERS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LDWFRIVE_1'] !== null ? Autolinker.link(String(feature.properties['LDWFRIVE_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LOOKUP'] !== null ? Autolinker.link(String(feature.properties['LOOKUP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NAME</strong><br />' + (feature.properties['NAME'] !== null ? Autolinker.link(String(feature.properties['NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PARISHES'] !== null ? Autolinker.link(String(feature.properties['PARISHES'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESC1'] !== null ? Autolinker.link(String(feature.properties['DESC1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESC2'] !== null ? Autolinker.link(String(feature.properties['DESC2'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LouisianaScenicRivers_3_0() {
+            return {
+                pane: 'pane_LouisianaScenicRivers_3',
+                opacity: 1,
+                color: 'rgba(92,182,227,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_LouisianaScenicRivers_3');
+        map.getPane('pane_LouisianaScenicRivers_3').style.zIndex = 403;
+        map.getPane('pane_LouisianaScenicRivers_3').style['mix-blend-mode'] = 'normal';
+        var layer_LouisianaScenicRivers_3 = new L.geoJson(json_LouisianaScenicRivers_3, {
+            attribution: '',
+            pane: 'pane_LouisianaScenicRivers_3',
+            onEachFeature: pop_LouisianaScenicRivers_3,
+            style: style_LouisianaScenicRivers_3_0,
+        });
+        bounds_group.addLayer(layer_LouisianaScenicRivers_3);
+        map.addLayer(layer_LouisianaScenicRivers_3);
+        function pop_solution4_applicants_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Account'] !== null ? Autolinker.link(String(feature.properties['Account'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Applicant_'] !== null ? Autolinker.link(String(feature.properties['Applicant_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addrtype'] !== null ? Autolinker.link(String(feature.properties['addrtype'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['addrlocat'] !== null ? Autolinker.link(String(feature.properties['addrlocat'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_solution4_applicants_4_0() {
+            return {
+                pane: 'pane_solution4_applicants_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,72,75,1.0)',
+            }
+        }
+        map.createPane('pane_solution4_applicants_4');
+        map.getPane('pane_solution4_applicants_4').style.zIndex = 404;
+        map.getPane('pane_solution4_applicants_4').style['mix-blend-mode'] = 'normal';
+        var layer_solution4_applicants_4 = new L.geoJson(json_solution4_applicants_4, {
+            attribution: '',
+            pane: 'pane_solution4_applicants_4',
+            onEachFeature: pop_solution4_applicants_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_solution4_applicants_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_solution4_applicants_4);
+        map.addLayer(layer_solution4_applicants_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/solution4_applicants_4.png" /> solution4_applicants': layer_solution4_applicants_4,'<img src="legend/LouisianaScenicRivers_3.png" /> Louisiana-Scenic-Rivers': layer_LouisianaScenicRivers_3,'<img src="legend/WMAsRefuges_LDWF_2.png" /> WMAs-Refuges_LDWF': layer_WMAsRefuges_LDWF_2,'<img src="legend/LouisianaParishes_1.png" /> Louisiana-Parishes': layer_LouisianaParishes_1,"OSM Standard": overlay_OSMStandard_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_LouisianaParishes_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['PARISH'] !== null?String('<div style="color: #fb8282; font-size: 8pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['PARISH']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_LouisianaParishes_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_LouisianaParishes_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_LouisianaParishes_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_LouisianaParishes_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_LouisianaParishes_1]);
+        });
+        </script>
+    </body>
+</html>
